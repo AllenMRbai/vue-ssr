@@ -4,11 +4,17 @@
   "description": "learn vue ssr",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node src/index.js"
   },
   "keywords": [
     "ssr"
   ],
   "author": "Allen",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.4",
+    "vue": "^2.6.6",
+    "vue-router": "^3.0.2",
+    "vue-server-renderer": "^2.6.6"
+  }
 }

@@ -4,7 +4,7 @@
   "description": "learn vue ssr",
   "main": "index.js",
   "scripts": {
-    "start": "node src/index.js"
+    "start": "nodemon src/index.js"
   },
   "keywords": [
     "ssr"
@@ -16,5 +16,8 @@
     "vue": "^2.6.6",
     "vue-router": "^3.0.2",
     "vue-server-renderer": "^2.6.6"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.10"
   }
 }

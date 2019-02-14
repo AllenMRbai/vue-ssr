@@ -1,8 +1,18 @@
 const Vue = require('vue')
-const server = require('express')()
-const renderer = require('vue-server-renderer').createRenderer()
+const express = require('express')
+const fs = require('fs')
+const path = require('path')
+const VueServerRenderer = require('vue-server-renderer')
 
-server.get('*', (req, res) => {
+const server = express()
+
+const renderer = VueServerRenderer.createRenderer({
+  template: fs.readFileSync(path.resolve(__dirname, '../public/index.template.html'), 'utf-8')
+})
+
+server.use(express.static('public'))
+
+server.get('/', (req, res) => {
   const app = new Vue({
     data: {
       url: req.url
@@ -10,19 +20,14 @@ server.get('*', (req, res) => {
     template: `<div>访问的url是： {{url}}</div>`
   })
 
+  console.log(req.url)
+
   renderer.renderToString(app, (err, html) => {
     if (err) {
       res.status(500).end('Internal Server Error')
       return
     }
-    res.end(`
-    <!DOCTYPE html>
-    <html lang="en">
-      <meta charset="UTF-8">
-      <head><title>Hello</title></head>
-      <body>${html}</body>
-    </html>
-    `)
+    res.end(html)
   })
 })
 

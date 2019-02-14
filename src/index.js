@@ -10,6 +10,13 @@ const renderer = VueServerRenderer.createRenderer({
   template: fs.readFileSync(path.resolve(__dirname, '../public/index.template.html'), 'utf-8')
 })
 
+const context = {
+  title: 'Vue SSR',
+  meta: `
+    <meta name="description" content="Vue in SSR">
+  `
+}
+
 server.use(express.static(path.resolve(__dirname, '../public')))
 
 server.get('/', (req, res) => {
@@ -47,7 +54,7 @@ server.get('/', (req, res) => {
     `
   })
 
-  renderer.renderToString(app, (err, html) => {
+  renderer.renderToString(app, context, (err, html) => {
     if (err) {
       res.status(500).end('Internal Server Error')
       return
